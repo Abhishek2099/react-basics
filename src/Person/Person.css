@@ -2,9 +2,23 @@
     width: 60%;
     margin: 16px auto;
     border: 2px solid #eee;
-    box-shadow: 0 20px 30px #ccc;
+    box-shadow: 0 2px 3px #ccc;
     padding: 16px;
     text-align: center;
     color: dodgerblue;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+input[type=text]{
+    border: none;
+    border-bottom: 2px solid purple;
+    border-radius: 4px;
+    background-color: #121212;
+    color: blanchedalmond;
+    outline: none;
+}
+
+input[type=text]:focus{
+    background-color: #191919;
+    border: 2px solid #555;
 }

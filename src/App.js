@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
+import './Button.css';
 
 class App extends Component {
 
@@ -46,16 +47,15 @@ class App extends Component {
     };
 
     return (
-      <div className="App">
+      <div className="App" style={{backgroundColor: "#121212"}}>
 
         <h1>Hi I'm a react app!!</h1>
-        <p>This Is really working</p>
          {/* arrow function can be inefficient here compared to bind syntax */}
-        <button 
-          style = {myInlineStyle}
+        <button className="Button1"
           onClick={() => this.switchNameHandler('Optimus Prime')}> Switch Name 
         </button>
-
+        <br />
+        <br />
         <Person
           name={this.state.persons[0].name}
           age={this.state.persons[0].age} />
