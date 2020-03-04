@@ -1,0 +1,10 @@
+.Person {
+    width: 60%;
+    margin: 16px auto;
+    border: 2px solid #eee;
+    box-shadow: 0 20px 30px #ccc;
+    padding: 16px;
+    text-align: center;
+    color: dodgerblue;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
