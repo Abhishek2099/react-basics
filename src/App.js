@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './App.css';
+import classes from './App.css';
 import Person from './Person/Person';
 
 class App extends Component {
@@ -48,31 +48,10 @@ class App extends Component {
   }
 
   render() {
-    const myInlineStyle = {
-      backgroundColor: "#aba",
-      color: 'black',
-      padding: '15px 32px',
-      textAlign: 'center',
-      textDecoration: 'dotted',
-      display: 'ruby',
-      fontSize: '25px',
-      borderRadius: '10px',
-      border: '2px solid #a070a0',
-      transitionDuration: '0.4s',
-      boxShadow: '0px 8px 16px 3px rgba(255,255,255,0.1), 0px 6px 10px 0 rgba(255,255,255,0.05)',
-      outline: 'none',
-      // ':hover': {
-      //   backgroundColor: 'lightslategray',
-      //   color: 'rgba(30, 34, 29, 0.555)',
-      //   cursor: 'pointer',
-      //   boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
-      // },
-      // ':active': {
-      //   transform: 'translateY(4px)'
-      // }
-    };
 
     let persons = null;
+    let btnStyle = '';
+
     if (this.state.showPersons) {
       persons = (
         <div>
@@ -87,30 +66,24 @@ class App extends Component {
 
         </div>
       )
-
-      myInlineStyle.backgroundColor = 'darkgrey';
-      // myInlineStyle[':hover'] = {
-      //   backgroundColor: 'darkslategray',
-      //   color: 'rgba(30, 34, 29, 0.555)',
-      //   cursor: 'pointer',
-      //   boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
-      // }
+      btnStyle = classes.darkgrey;
+    
     }
 
-    let classes = [];
+    let assignedClasses = [];
     if (this.state.persons.length <= 4) {
-      classes.push('purple');
+      assignedClasses.push(classes.purple);
     }
     if (this.state.persons.length <= 2) {
-      classes.push('bold');
+      assignedClasses.push(classes.bold);
     }
 
     return (
-        <div className="App" style={{ backgroundColor: '#343538' }}>
+        <div className={classes.App} >
           <h1>Hi I'm a react app!!</h1>
-          <p className={classes.join(' ')}>This app is working</p>
+          <p className={assignedClasses.join(' ')}>This app is working</p>
           <button
-            style={myInlineStyle}
+            className = {btnStyle}
             onClick={this.togglePersonHandler}> {this.state.currMsg}
           </button>
 
