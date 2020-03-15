@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
 import Person from './Person/Person';
+import ErrorBoundary from './ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
 
@@ -56,18 +57,19 @@ class App extends Component {
       persons = (
         <div>
           {this.state.persons.map((person, index) => {
-            return <Person
-              click={() => this.deletePersonHandler(index)}
-              name={person.name}
-              age={person.age}
-              key={person.id}
-              changed={(event) => this.nameChangedHandler(event, person.id)} />
+            return <ErrorBoundary key={person.id}>
+              <Person
+                click={() => this.deletePersonHandler(index)}
+                name={person.name}
+                age={person.age}
+                changed={(event) => this.nameChangedHandler(event, person.id)} />
+            </ErrorBoundary>
           })}
 
         </div>
       )
       btnStyle = classes.darkgrey;
-    
+
     }
 
     let assignedClasses = [];
@@ -78,19 +80,25 @@ class App extends Component {
       assignedClasses.push(classes.bold);
     }
 
-    return (
-        <div className={classes.App} >
-          <h1>Hi I'm a react app!!</h1>
-          <p className={assignedClasses.join(' ')}>This app is working</p>
-          <button
-            className = {btnStyle}
-            onClick={this.togglePersonHandler}> {this.state.currMsg}
-          </button>
+    const rnd = Math.random();
 
-          <br />
-          <br />
-          {persons}
-        </div>
+    if(rnd > 0.7){
+      throw new Error('Something went wrong');
+    }
+
+    return (
+      <div className={classes.App} >
+        <h1>Hi I'm a react app!!</h1>
+        <p className={assignedClasses.join(' ')}>This app is working</p>
+        <button
+          className={btnStyle}
+          onClick={this.togglePersonHandler}> {this.state.currMsg}
+        </button>
+
+        <br />
+        <br />
+        {persons}
+      </div>
     );
     // return React.createElement('div', {className : 'App'}, React.createElement('h1', null, 'Hi i am react app'));
   }
