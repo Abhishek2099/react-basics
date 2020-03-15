@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person';
-import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
 
@@ -62,15 +61,15 @@ class App extends Component {
       transitionDuration: '0.4s',
       boxShadow: '0px 8px 16px 3px rgba(255,255,255,0.1), 0px 6px 10px 0 rgba(255,255,255,0.05)',
       outline: 'none',
-      ':hover': {
-        backgroundColor: 'lightslategray',
-        color: 'rgba(30, 34, 29, 0.555)',
-        cursor: 'pointer',
-        boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
-      },
-      ':active': {
-        transform: 'translateY(4px)'
-      }
+      // ':hover': {
+      //   backgroundColor: 'lightslategray',
+      //   color: 'rgba(30, 34, 29, 0.555)',
+      //   cursor: 'pointer',
+      //   boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
+      // },
+      // ':active': {
+      //   transform: 'translateY(4px)'
+      // }
     };
 
     let persons = null;
@@ -90,12 +89,12 @@ class App extends Component {
       )
 
       myInlineStyle.backgroundColor = 'darkgrey';
-      myInlineStyle[':hover'] = {
-        backgroundColor: 'darkslategray',
-        color: 'rgba(30, 34, 29, 0.555)',
-        cursor: 'pointer',
-        boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
-      }
+      // myInlineStyle[':hover'] = {
+      //   backgroundColor: 'darkslategray',
+      //   color: 'rgba(30, 34, 29, 0.555)',
+      //   cursor: 'pointer',
+      //   boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
+      // }
     }
 
     let classes = [];
@@ -107,7 +106,6 @@ class App extends Component {
     }
 
     return (
-      <StyleRoot>
         <div className="App" style={{ backgroundColor: '#343538' }}>
           <h1>Hi I'm a react app!!</h1>
           <p className={classes.join(' ')}>This app is working</p>
@@ -120,10 +118,9 @@ class App extends Component {
           <br />
           {persons}
         </div>
-      </StyleRoot>
     );
     // return React.createElement('div', {className : 'App'}, React.createElement('h1', null, 'Hi i am react app'));
   }
 }
 
-export default Radium(App);
+export default App;
