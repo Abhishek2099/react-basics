@@ -1,80 +1,129 @@
 import React, { Component } from 'react';
 import './App.css';
-import Person from './Person/Person'
-import './Button.css';
+import Person from './Person/Person';
+import Radium, { StyleRoot } from 'radium';
 
 class App extends Component {
 
   state = {
     persons: [
-      { name: "Bumblebee", age: 20 },
-      { name: "Sentinel", age: 35 },
-      { name: "Megatron", age: 29 }
-    ]
+      { id: "asd", name: "Bumblebee", age: 20 },
+      { id: "fgh", name: "Sentinel", age: 35 },
+      { id: "jkl", name: "Megatron", age: 29 },
+      { id: "qwe", name: "Optimus", age: 30 },
+      { id: "rty", name: "AllSparX", age: 24 }
+    ],
+    showPersons: false,
+    currMsg: "Show Person"
   }
 
-  switchNameHandler = (newName) => {
-    // console.log('This Works');
-    // Doesn't Works use setState method instead -> this.state.persons[1].name = "Optimus Prime";
-    this.setState({
-      persons: [
-        { name: "Bumblebee", age: 20 },
-        { name: newName, age: 35 },
-        { name: "Megatron", age: 29 }
-      ]
+  nameChangedHandler = (event, id) => {
+    const personIndex = this.state.persons.findIndex(person => {
+      return person.id === id;
     })
+
+    // const person = Object.assign({},this.state.persons[personIndex]);
+    const person = {
+      ...this.state.persons[personIndex]
+    }
+
+    person.name = event.target.value;
+
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
+    this.setState({ persons: persons });
   }
-  
-  nameChangedHandler = (event) => {
-    this.setState({
-      persons: [
-        { name: "Bumblebee", age: 20 },
-        { name: event.target.value , age: 35 },
-        { name: "Megatron", age: 29 }
-      ]
-    })
+
+  deletePersonHandler = (personIndex) => {
+    // const persons = this.state.persons.splice();
+    const persons = [...this.state.persons];
+    persons.splice(personIndex, 1);
+    this.setState({ persons: persons });
+  }
+
+  togglePersonHandler = () => {
+    const doesShow = this.state.showPersons;
+    this.setState({ showPersons: !doesShow });
+    this.setState({ currMsg: (doesShow ? "Show" : "Hide") + " Person" });
   }
 
   render() {
-
     const myInlineStyle = {
-      backgroundColor: '#aba',
-      font: 'inherit',
-      border: '1px solid blue',
-      padding: '8px',
-      cursor: 'pointer'
-      
+      backgroundColor: "#aba",
+      color: 'black',
+      padding: '15px 32px',
+      textAlign: 'center',
+      textDecoration: 'dotted',
+      display: 'ruby',
+      fontSize: '25px',
+      borderRadius: '10px',
+      border: '2px solid #a070a0',
+      transitionDuration: '0.4s',
+      boxShadow: '0px 8px 16px 3px rgba(255,255,255,0.1), 0px 6px 10px 0 rgba(255,255,255,0.05)',
+      outline: 'none',
+      ':hover': {
+        backgroundColor: 'lightslategray',
+        color: 'rgba(30, 34, 29, 0.555)',
+        cursor: 'pointer',
+        boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
+      },
+      ':active': {
+        transform: 'translateY(4px)'
+      }
     };
 
+    let persons = null;
+    if (this.state.showPersons) {
+      persons = (
+        <div>
+          {this.state.persons.map((person, index) => {
+            return <Person
+              click={() => this.deletePersonHandler(index)}
+              name={person.name}
+              age={person.age}
+              key={person.id}
+              changed={(event) => this.nameChangedHandler(event, person.id)} />
+          })}
+
+        </div>
+      )
+
+      myInlineStyle.backgroundColor = 'darkgrey';
+      myInlineStyle[':hover'] = {
+        backgroundColor: 'darkslategray',
+        color: 'rgba(30, 34, 29, 0.555)',
+        cursor: 'pointer',
+        boxShadow: '0 12px 16px 0 rgba(255,255,255,0.24), 0 17px 25px 0 rgba(255,255,255,0.19)'
+      }
+    }
+
+    let classes = [];
+    if (this.state.persons.length <= 4) {
+      classes.push('purple');
+    }
+    if (this.state.persons.length <= 2) {
+      classes.push('bold');
+    }
+
     return (
-      <div className="App" style={{backgroundColor: "#121212"}}>
+      <StyleRoot>
+        <div className="App" style={{ backgroundColor: '#343538' }}>
+          <h1>Hi I'm a react app!!</h1>
+          <p className={classes.join(' ')}>This app is working</p>
+          <button
+            style={myInlineStyle}
+            onClick={this.togglePersonHandler}> {this.state.currMsg}
+          </button>
 
-        <h1>Hi I'm a react app!!</h1>
-         {/* arrow function can be inefficient here compared to bind syntax */}
-        <button className="Button1"
-          onClick={() => this.switchNameHandler('Optimus Prime')}> Switch Name 
-        </button>
-        <br />
-        <br />
-        <Person
-          name={this.state.persons[0].name}
-          age={this.state.persons[0].age} />
-
-        <Person
-          name={this.state.persons[1].name}
-          age={this.state.persons[1].age}
-          click={this.switchNameHandler.bind(this, "Sentinel Prime")}
-          changed={this.nameChangedHandler}>My Mission : Protect Cybertron
-        </Person>
-
-        <Person
-          name={this.state.persons[2].name}
-          age={this.state.persons[2].age} />
-
-      </div>
+          <br />
+          <br />
+          {persons}
+        </div>
+      </StyleRoot>
     );
     // return React.createElement('div', {className : 'App'}, React.createElement('h1', null, 'Hi i am react app'));
   }
 }
 
-export default App;
+export default Radium(App);
