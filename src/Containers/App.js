@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import classes from './App.css';
-import Person from '../Components/Persons/Person/Person';
+import Persons from '../Components/Persons/Persons';
+import Cockpit from '../Components/Cockpit/Cockpit';
 
 class App extends Component {
 
@@ -13,7 +14,6 @@ class App extends Component {
       { id: "rty", name: "AllSparX", age: 24 }
     ],
     showPersons: false,
-    currMsg: "Show Person"
   }
 
   nameChangedHandler = (event, id) => {
@@ -44,55 +44,28 @@ class App extends Component {
   togglePersonHandler = () => {
     const doesShow = this.state.showPersons;
     this.setState({ showPersons: !doesShow });
-    this.setState({ currMsg: (doesShow ? "Show" : "Hide") + " Person" });
   }
 
   render() {
-
     let persons = null;
-    let btnStyle = '';
 
     if (this.state.showPersons) {
-      persons = (
-        <div>
-          {this.state.persons.map((person, index) => {
-            return <Person
-                click={() => this.deletePersonHandler(index)}
-                name={person.name}
-                age={person.age}
-                key={person.id}
-                changed={(event) => this.nameChangedHandler(event, person.id)} />
-          })}
-
-        </div>
-      )
-      btnStyle = classes.darkgrey;
-
-    }
-
-    let assignedClasses = [];
-    if (this.state.persons.length <= 4) {
-      assignedClasses.push(classes.purple);
-    }
-    if (this.state.persons.length <= 2) {
-      assignedClasses.push(classes.bold);
+      persons = <Persons
+        persons={this.state.persons}
+        clicked={this.deletePersonHandler}
+        changed={this.nameChangedHandler} />
     }
 
     return (
       <div className={classes.App} >
-        <h1>Hi I'm a react app!!</h1>
-        <p className={assignedClasses.join(' ')}>This app is working</p>
-        <button
-          className={btnStyle}
-          onClick={this.togglePersonHandler}> {this.state.currMsg}
-        </button>
-
-        <br />
-        <br />
+        <Cockpit
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          clicked={this.togglePersonHandler}
+          title={this.props.appTitle} />
         {persons}
       </div>
     );
-    // return React.createElement('div', {className : 'App'}, React.createElement('h1', null, 'Hi i am react app'));
   }
 }
 
