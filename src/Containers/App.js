@@ -5,6 +5,12 @@ import Cockpit from '../Components/Cockpit/Cockpit';
 
 class App extends Component {
 
+  constructor(props) {
+    super(props);
+    console.log('[App.js] constructor');
+
+  }
+
   state = {
     persons: [
       { id: "asd", name: "Bumblebee", age: 20 },
@@ -14,11 +20,30 @@ class App extends Component {
       { id: "rty", name: "AllSparX", age: 24 }
     ],
     showPersons: false,
+    showCockpit: true
+  }
+
+  static getDerivedStateFromProps(props, state) {
+    console.log('[App.js] getDerivedStateFromProps', props);
+    return state;
+  }
+
+  shouldComponentUpdate(nextProps, nextState) {
+    console.log('[App.js] shouldComponentUpdate');
+    return true;
+  }
+
+  componentDidUpdate() {
+    console.log('[App.js] componentDidUpdate');
+  }
+
+  componentDidMount() {
+    console.log('[App.js] componentDidMount');
   }
 
   nameChangedHandler = (event, id) => {
     const personIndex = this.state.persons.findIndex(person => {
-      return person.userId === id;
+      return person.id === id;
     })
 
     // const person = Object.assign({},this.state.persons[personIndex]);
@@ -47,8 +72,9 @@ class App extends Component {
   }
 
   render() {
-    let persons = null;
+    console.log('[App.js] render');
 
+    let persons = null;
     if (this.state.showPersons) {
       persons = <Persons
         persons={this.state.persons}
@@ -58,15 +84,28 @@ class App extends Component {
 
     return (
       <div className={classes.App} >
-        <Cockpit
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          clicked={this.togglePersonHandler}
-          title={this.props.appTitle} />
+        <button
+          onClick={() => {
+            this.setState({ showCockpit: false })
+          }}
+        >
+          Remove Cockpit
+        </button>
+        {
+          this.state.showCockpit ?
+            <Cockpit
+              showPersons={this.state.showPersons}
+              personsLength={this.state.persons.length}
+              clicked={this.togglePersonHandler}
+              title={this.props.appTitle} />
+            : null
+        }
         {persons}
       </div>
     );
   }
+
+
 }
 
 export default App;
