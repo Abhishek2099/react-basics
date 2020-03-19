@@ -1,32 +1,32 @@
 .Person {
-    width: 60%;
-    margin: 16px auto;
-    border: 2px solid #eee;
-    box-shadow: 0 2px 3px #ccc;
-    padding: 16px;
-    text-align: center;
-    color: dodgerblue;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  width: 60%;
+  margin: 16px auto;
+  border: 2px solid #eee;
+  box-shadow: 0 2px 3px #ccc;
+  padding: 16px;
+  text-align: center;
+  color: dodgerblue;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
 }
 
-input[type=text]{
-    border: none;
-    border-bottom: 2px solid purple;
-    border-radius: 4px;
-    background-color: #343538;
-    color: blanchedalmond;
-    outline: none;
-    width: 30%;
-    padding-left: 4px;
+input[type="text"] {
+  border: none;
+  border-bottom: 2px solid purple;
+  border-radius: 4px;
+  background-color: #343538;
+  color: blanchedalmond;
+  outline: none;
+  width: 30%;
+  padding-left: 4px;
 }
 
-input[type=text]:focus{
-    background-color: #191919;
-    border: 2px solid #555;
+input[type="text"]:focus {
+  background-color: #191919;
+  border: 2px solid #555;
 }
 
 @media (min-width: 500px) {
-    .Person {
-        width : 450px;
-    }
+  .Person {
+    width: 450px;
+  }
 }
