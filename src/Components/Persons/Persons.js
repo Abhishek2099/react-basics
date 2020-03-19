@@ -16,18 +16,18 @@ class Persons extends PureComponent {
     //     console.log('[Persons.js] shouldComponentUpdate');
     //     return nextProps.persons !== this.props.persons;
     // }
-    
-    getSnapshotBeforeUpdate(prevProps, prevState){
+
+    getSnapshotBeforeUpdate(prevProps, prevState) {
         console.log('[Persons.js] getSnapshotBeforeUpdate');
-        return {message : 'null'};
+        return { message: 'null' };
     }
-    
-    componentDidUpdate(prevProps, prevState, snapshot){
+
+    componentDidUpdate(prevProps, prevState, snapshot) {
         console.log('[Persons.js] componentDidUpdate');
         console.log(snapshot);
     }
 
-    componentWillUnmount(){
+    componentWillUnmount() {
         console.log('[Persons.js] componentWillUnmount');
     }
 
